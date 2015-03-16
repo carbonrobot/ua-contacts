@@ -1,9 +1,13 @@
-(function(angular){
+(function(angular, _){
+	'use strict';
 
 	angular.module('app').filter('search', searchFilter);
+	searchFilter.$inject = ['$timeout'];
 
-	function searchFilter(){
-		return function(arr, fields, value){
+	function searchFilter($timeout){
+		return memoize(filter, getCacheKey);
+
+		function filter(arr, fields, value){
 			var result = arr;
 			if(value) {
 				value = value.toUpperCase();
@@ -23,7 +27,26 @@
 				
 			}
 			return result;
-		};
+		}
+
+		function getCacheKey(arr, fields, value){
+			return arr.length + '|' + fields + '|' + value;
+		}
+
+		function memoize(func, resolver){
+			var memo = {};
+		    resolver || (resolver = _.identity);
+		    return function() {
+				var key = resolver.apply(this, arguments);
+
+				// after digest, clear the cache
+				$timeout(function() {
+					delete memo[key];
+				}, 0, false);
+
+				return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
+		    };
+		}
 	}
 
-})(window.angular);
+})(window.angular, window._);

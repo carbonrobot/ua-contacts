@@ -1,0 +1,36 @@
+<div>
+    <div class="contact-grid-pagination clearfix">
+        <ul class="page-list pull-left">
+            <li class="page-list-item" ng-class="{'current': clvm.pgSize == 10}" ng-click="clvm.setPgSize(10)">10</li>
+            <li class="page-list-item" ng-class="{'current': clvm.pgSize == 20}" ng-click="clvm.setPgSize(20)">20</li>
+            <li class="page-list-item" ng-class="{'current': clvm.pgSize == 50}" ng-click="clvm.setPgSize(50)">50</li>
+        </ul>
+        <ul class="page-list pull-right">
+            <li class="page-list-item" ng-click="clvm.prev()" ng-hide="clvm.pgIndex == 1">&lt;</li>
+            <li class="page-list-item" ng-repeat="pg in clvm.pages track by $index" ng-class="{'current': clvm.pgIndex == $index+1}" ng-click="clvm.page($index+1)">{{ $index+1 }}</li>
+            <li class="page-list-item" ng-click="clvm.next()" ng-hide="clvm.pgIndex == clvm.pages.length">&gt;</li>
+        </ul>
+    </div>
+
+    <ul class="contact-list">
+        <li ng-repeat="contact in clvm.pagedContacts"
+            class="contact-list-item"
+            ng-class="{'selected': clvm.selectedContact == contact}"
+            ng-click="clvm.select(contact)">
+
+            <div class="contact clearfix">
+                <div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
+                <div class="contact-subtext">{{ contact.city }}, {{ contact.state }}</div>
+            </div>
+
+            <div class="contact-details drop" ng-show="clvm.selectedContact == contact">
+                <div><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div>
+                <div><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></div>
+                <div class="drop">{{ contact.address }}</div>
+                <div>{{ contact.city }}, {{ contact.state }} {{ contact.zip }}</div>
+                <div class="drop subtle">Joined: {{ contact.join_date }}</div>
+            </div>
+
+        </li>
+    </ul>
+</div>
