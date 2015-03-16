@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Contact Armour</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body ng-app="app">
+        <div class="header">
+            <div class="title">Contacts</div>
+        </div>
+        <div ng-controller="mainController as main" class="ng-cloak">
+            
+            <div class="contact-filters clearfix">
+                <div class="filter-group pull-left">
+                    <label class="input-label">State:</label>
+                    <input type="text" class="input-control" ng-model="main.stateFilter" />
+                </div>
+                <div class="filter-group pull-right">
+                    <label class="input-label">Name:</label>
+                    <input type="text" class="input-control" ng-model="main.nameFilter" />
+                </div>
+            </div>
+
+            <div class="contact-grid-pagination clearfix">
+                <ul class="page-list pull-left">
+                    <li class="page-list-item" ng-class="{'current': main.pgSize == 10}" ng-click="main.setPgSize(10)">10</li>
+                    <li class="page-list-item" ng-class="{'current': main.pgSize == 20}" ng-click="main.setPgSize(20)">20</li>
+                    <li class="page-list-item" ng-class="{'current': main.pgSize == 50}" ng-click="main.setPgSize(50)">50</li>
+                </ul>
+                <ul class="page-list pull-right">
+                    <li class="page-list-item" ng-click="main.prev()" ng-hide="main.pgIndex == 1">&lt;</li>
+                    <li class="page-list-item" ng-repeat="pg in main.pages track by $index" ng-class="{'current': main.pgIndex == $index+1}" ng-click="main.page($index+1)">{{ $index+1 }}</li>
+                    <li class="page-list-item" ng-click="main.next()" ng-hide="main.pgIndex == main.pages.length">&gt;</li>
+                </ul>
+            </div>
+
+            <ul class="contact-list">
+                <li ng-repeat="contact in main.filteredContacts"
+                    class="contact-list-item"
+                    ng-class="{'selected': main.selectedContact == contact}"
+                    ng-click="main.select(contact)">
+                    <div class="contact clearfix">
+                        <div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
+                        <div class="contact-subtext">{{ contact.city }}, {{ contact.state }}</div>
+                    </div>
+                    <div class="contact-details drop" ng-show="main.selectedContact == contact">
+                        <div><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div>
+                        <div><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></div>
+                        <div class="drop">{{ contact.address }}</div>
+                        <div>{{ contact.city }}, {{ contact.state }} {{ contact.zip }}</div>
+                        <div class="drop subtle">Joined: {{ contact.join_date }}</div>
+                    </div>
+                </li>
+            </ul>
+            
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/controllers/main.controllers.js"></script>
+        <script src="js/services/contacts.services.js"></script>
+        <script src="js/filters/search.filters.js"></script>
+    </body>
+</html>

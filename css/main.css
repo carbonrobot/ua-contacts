@@ -1,0 +1,143 @@
+/*
+    Layout
+ */
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.drop {
+    margin-top: 10px;
+}
+
+/*
+    Typography
+ */
+html {
+    color: #222;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.subtle {
+    color: #818181;
+}
+
+/*
+    Page Styles
+ */
+.header {
+    margin-bottom: 10px;
+    background-color: #FFD454;
+}
+
+.title {
+    padding: 7px 14px;
+    font-size: 24px;
+}
+
+/*
+    Control Styles
+ */
+.filter-group {
+    margin: 10px;
+}
+.input-label {
+    display: inline-block;
+    width: 50px;
+    font-weight: bold;
+}
+
+/*
+    Grid Styles
+ */
+.contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contact-list-item {
+    padding: 7px 14px;
+    border-bottom: 1px solid #EEE;
+}
+
+.contact-list-item:hover {
+    background-color: #EEE;
+    cursor: pointer;
+}
+
+.contact-list-item.selected {
+    background-color: hsla(45, 100%, 66%, 1);
+}
+
+.contact-subtext {
+    display: block;
+    font-size: 0.75em;
+    font-color: #444;
+}
+
+/* Paging */
+.page-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-list-item {
+    display: inline-block;
+    padding: 5px 10px 3px 10px;
+    margin: 6px;
+    color: #FFF;
+    background-color: hsla(45, 100%, 66%, 1);
+    border: 1px solid hsla(45, 100%, 66%, 1);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.page-list-item:active,
+.page-list-item:hover {
+    background-color: hsla(45, 100%, 49.5%, 1);
+    border: 1px solid hsla(45, 100%, 49.5%, 1);
+}
+
+.page-list-item:active {
+    color: hsla(0, 0%, 100%, 0.6);
+}
+
+.page-list-item.current {
+    color: #FFD454;
+    background-color: #FFF;
+    cursor: default;
+}
+
+@media only screen and (min-width: 35em) {
+    .pull-left {
+        float: left;
+    }
+
+    .pull-right {
+        float: right;
+    }
+
+    .contact-name {
+        float: left;
+    }
+
+    .contact-subtext {
+        float: right;
+        font-size: 1.0em;
+    }
+
+    .page-list-item {
+        margin: 12px;
+    }
+}
